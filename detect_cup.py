@@ -18,6 +18,7 @@ def callback(frame: np.ndarray, _: int) -> np.ndarray:
         if class_id == 41:
             labels.append(f"#{tracker_id} {results.names[class_id]}")
 
+    # Filter the detections to only keep the cups.
     detections = detections[detections.class_id == 41]
 
     annotated_frame = box_annotator.annotate(frame.copy(), detections=detections)
@@ -26,4 +27,6 @@ def callback(frame: np.ndarray, _: int) -> np.ndarray:
     )
 
 
-sv.process_video(source_path="cup.webm", target_path="result.mp4", callback=callback)
+sv.process_video(
+    source_path="cup.webm", target_path="results/cup.mp4", callback=callback
+)
